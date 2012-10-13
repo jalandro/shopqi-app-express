@@ -1,0 +1,18 @@
+.content
+  %h2 最近订单
+  %table.table.table-striped
+    %thead
+      %tr
+        %th 订单号
+        %th 支付状态
+        %th 发货状态
+        %th 总金额
+    %tbody
+      -@orders.each do |order|
+        %tr
+          %td=link_to order.name, order.admin_url, target: :_blank
+          %td
+            %span.label{class: financial_class(order.financial_status)}=order.financial_status_name
+          %td
+            %span.label{class: fulfillment_class(order.fulfillment_status)}=order.fulfillment_status_name
+          %td=order.total_price
