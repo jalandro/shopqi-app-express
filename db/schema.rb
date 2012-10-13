@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013024344) do
+ActiveRecord::Schema.define(:version => 20121013095945) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -29,16 +29,23 @@ ActiveRecord::Schema.define(:version => 20121013024344) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "fulfillments", :force => true do |t|
+    t.integer  "order_id",                                          :null => false
+    t.integer  "fulfillment_id"
+    t.string   "tracking_company", :limit => 64
+    t.string   "tracking_number",  :limit => 64
+    t.boolean  "received",                       :default => false
+    t.string   "receiver",         :limit => 32
+    t.datetime "created_at",                                        :null => false
+  end
+
+  add_index "fulfillments", ["order_id"], :name => "index_fulfillments_on_order_id"
+
   create_table "orders", :force => true do |t|
-    t.integer  "shop_id",                               :null => false
-    t.integer  "order_id",                              :null => false
-    t.string   "name",                    :limit => 32, :null => false
-    t.string   "financial_status",        :limit => 16, :null => false
-    t.string   "financial_status_name",   :limit => 32, :null => false
-    t.string   "fulfillment_status",      :limit => 16, :null => false
-    t.string   "fulfillment_status_name", :limit => 32, :null => false
-    t.float    "total_price",                           :null => false
-    t.datetime "created_at",                            :null => false
+    t.integer  "shop_id",                  :null => false
+    t.integer  "order_id",                 :null => false
+    t.string   "name",       :limit => 32, :null => false
+    t.datetime "created_at",               :null => false
   end
 
   add_index "orders", ["order_id"], :name => "index_orders_on_order_id", :unique => true

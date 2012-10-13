@@ -42,7 +42,7 @@ gem "shopqi-app"
 gem "shopqi-app-webhook"
 gem "settingslogic"
 gem "jquery-rails"
-gem "spine-rails"
+#gem "spine-rails"
 gem "ruby-haml-js"
 gem "whenever", :require => false
 gem "exception_notification"
@@ -63,4 +63,8 @@ group :test do
   gem "factory_girl_rails"
   gem "capybara"
   gem "database_cleaner"
+end
+
+group :development, :test do
+  gem "awesome_print"
 end
