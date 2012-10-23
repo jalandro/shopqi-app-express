@@ -4,15 +4,19 @@
     %thead
       %tr
         %th 订单号
+        %th 顾客
         %th 物流信息
     %tbody
       -@orders.each do |order|
         %tr
           %td=link_to order.name, order.admin_url, target: :_blank
+          %td=order.customer_name
           %td
-            -order.fulfillments.each do |fulfillment|
-              %p
-                -if fulfillment.received
-                  %span.alert.alert-success(title="#{fulfillment.tracking_company} #{fulfillment.tracking_number}") 已签收
-                -else
-                  %span.alert(class="#{fulfillment.expire? ? 'alert-error' : 'alert-block'}")==#{fulfillment.tracking_company} #{fulfillment.tracking_number} 未签收
+            %ul.unstyled
+              -order.fulfillments.each do |fulfillment|
+                %li
+                  %span==#{fulfillment.tracking_company} #{fulfillment.tracking_number} 
+                  -if fulfillment.received
+                    %span.label.label-success 已签收
+                  -else
+                    %span.label(class="#{fulfillment.expire? && 'label-warning'}") 未签收

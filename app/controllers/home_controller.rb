@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def index
     if signed_in?
-      @orders = current_shop.orders.limit(50)
+      @orders = current_shop.orders.order('id desc').limit(50)
     else
       redirect_to login_path
     end

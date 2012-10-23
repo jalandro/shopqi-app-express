@@ -30,7 +30,8 @@ describe Order do
       total_price: 45.0,
       trade_no: nil,
       updated_at: "2012-05-15T21:36:38+08:00",
-      fulfillments: [ {id: 1, created_at: '2012-10-13T20:52:45+08:00'} ]
+      fulfillments: [ {id: 1, created_at: '2012-10-13T20:52:45+08:00'}.stringify_keys ],
+      customer: {id: 1, name: '马海波'}.stringify_keys
     }.stringify_keys!
   }
 

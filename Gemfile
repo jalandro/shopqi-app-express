@@ -47,6 +47,8 @@ gem "ruby-haml-js"
 gem "whenever", :require => false
 gem "exception_notification"
 gem "unicorn"
+gem "china-express"
+
 group :development do
   gem "haml-rails"
   gem "rvm-capistrano", "~> 1.2.5"

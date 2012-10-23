@@ -36,16 +36,18 @@ ActiveRecord::Schema.define(:version => 20121013095945) do
     t.string   "tracking_number",  :limit => 64
     t.boolean  "received",                       :default => false
     t.string   "receiver",         :limit => 32
+    t.datetime "received_at"
     t.datetime "created_at",                                        :null => false
   end
 
   add_index "fulfillments", ["order_id"], :name => "index_fulfillments_on_order_id"
 
   create_table "orders", :force => true do |t|
-    t.integer  "shop_id",                  :null => false
-    t.integer  "order_id",                 :null => false
-    t.string   "name",       :limit => 32, :null => false
-    t.datetime "created_at",               :null => false
+    t.integer "shop_id",                     :null => false
+    t.integer "order_id",                    :null => false
+    t.string  "name",          :limit => 16, :null => false
+    t.string  "customer_name", :limit => 32, :null => false
+    t.float   "total_price",                 :null => false
   end
 
   add_index "orders", ["order_id"], :name => "index_orders_on_order_id", :unique => true
