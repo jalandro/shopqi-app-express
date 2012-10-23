@@ -54,8 +54,6 @@ group :development do
   gem "rvm-capistrano", "~> 1.2.5"
   gem "letter_opener"
   gem "guard-livereload"
-  gem "guard-spork"
-  gem "guard-rspec"
   gem "guard-bundler"
   gem "guard-unicorn"
 end
@@ -65,6 +63,8 @@ group :test do
   gem "factory_girl_rails"
   gem "capybara"
   gem "database_cleaner"
+  gem "guard-spork"
+  gem "guard-rspec"
 end
 
 group :development, :test do
