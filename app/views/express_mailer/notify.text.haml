@@ -1,0 +1,10 @@
+==您好，#{@shop.name}
+\
+\
+==以下订单的商品超过 #{Fulfillment::EXPIRE_NUM} 天未签收，请及时跟进
+\
+-@fulfillments.each do |fulfillment|
+  ==#{fulfillment.order.name}, #{fulfillment.tracking_company}(#{fulfillment.tracking_number})
+  -fulfillment.trackings.each do |tracking|
+    ==　#{tracking.time.to_s(:short)} #{tracking.context}
+  =fulfillment.order.admin_url

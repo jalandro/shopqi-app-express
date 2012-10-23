@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   belongs_to :shop
-  has_many :fulfillments
-  attr_accessible :name, :order_id, :customer_name, :total_price
+  has_many :fulfillments, dependent: :destroy
+  attr_accessible :name , :order_id          , :customer_name, :total_price
 
   def admin_url
     "#{shop.admin_url}/orders/#{order_id}"

@@ -6,6 +6,7 @@ FactoryGirl.define do
     shop_id 1
     name '测试商店'
     shopqi_domain 'myshopqi.shopqi.com'
+    email 'mahb45@gmail.com'
     access_token SecureRandom.hex
   end
 end

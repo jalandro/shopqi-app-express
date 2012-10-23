@@ -1,9 +1,17 @@
 require "#{ShopQiAppWebhook::Engine.models_dir}/shop"
 require "#{ShopQiApp::Engine.models_dir}/shop" # methods: use_shopkit admin_url front_url
 class Shop
-  has_many :orders
+  has_many :orders        , dependent: :destroy
   has_many :fulfillments  , through: :orders
-  attr_accessible :shop_id, :name           , :shopqi_domain
+  attr_accessible :shop_id, :name              , :shopqi_domain, :email
+
+
+  def self.find_for_shopqi_oauth(data)
+    shop_data = data.extra.raw_info.shop
+    shop = where(shop_id: shop_data.id).first_or_create! name: shop_data.name, shopqi_domain: shop_data.shopqi_domain, email: shop_data.email
+    shop.access_token = data.credentials.token
+    shop.tap(&:save)
+  end
 
   def self.track # 跟踪物流
     self.all.each do |shop|
@@ -22,9 +30,8 @@ class Shop
 
   def self.send_mail
     self.all.each do |shop|
-      shop.fulfillments.unreceived.expired.each do |fulfillment|
-
-      end
+      expire_fulfillments = shop.fulfillments#.unreceived.expired
+      ExpressMailer.notify(shop, expire_fulfillments).deliver unless expire_fulfillments.empty?
     end
   end
 end

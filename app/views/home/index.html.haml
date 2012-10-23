@@ -17,5 +17,5 @@
                   -if fulfillment.received
                     %span.label.label-success 已签收
                   -else
-                    %span.label(class="#{fulfillment.expire? && 'label-warning'}") 未签收
-                  %span==#{fulfillment.tracking_company} #{fulfillment.tracking_number}
+                    %span.label(class="#{fulfillment.expire? && 'label-warning'}" rel="tooltip" title="#{fulfillment.trackings_detail}") 未签收
+                  %span==#{fulfillment.tracking_company}(#{fulfillment.tracking_number})
