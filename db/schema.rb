@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013095945) do
+ActiveRecord::Schema.define(:version => 20121023022004) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -60,5 +60,13 @@ ActiveRecord::Schema.define(:version => 20121013095945) do
   end
 
   add_index "shops", ["shop_id"], :name => "index_shops_on_shop_id", :unique => true
+
+  create_table "trackings", :force => true do |t|
+    t.integer  "fulfillment_id"
+    t.datetime "time",           :null => false
+    t.string   "context",        :null => false
+  end
+
+  add_index "trackings", ["fulfillment_id"], :name => "index_trackings_on_fulfillment_id"
 
 end

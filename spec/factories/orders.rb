@@ -2,9 +2,11 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :fulfillment do
-    fulfillment_id 1
-    tracking_company "顺丰快递"
-    tracking_number "123456"
+  factory :order do
+    order_id 1
+    name '#1001'
+    customer_name '马海波'
+    total_price 99.0
   end
 end
+
