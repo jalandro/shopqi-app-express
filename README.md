@@ -1,4 +1,5 @@
-## 快递跟踪
+## 快递跟踪 [![测试結果](https://secure.travis-ci.org/saberma/shopqi-app-express.png)](http://travis-ci.org/saberma/shopqi-app-express)
+
 
 商品发货后需要持续跟踪物流情况，如果 3 天后仍未到货，要发邮件提醒管理员。
 
