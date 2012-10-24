@@ -30,6 +30,7 @@ set :user, :shopqiapp
 set :use_sudo, false
 
 set :pids_path, "#{shared_path}/pids"
+set :shared_children, shared_children.push('config')
 
 depend :remote, :gem, "bundler", ">=1.0.21" # 可以通过 cap deploy:check 检查依赖情况
 
@@ -48,7 +49,17 @@ namespace :deploy do
     run "kill -s USR2 `cat #{pids_path}/unicorn.#{application}.pid`"
   end
 
+  # scp -P $CAP_PORT config/{database,app_secret_config}.yml shopqiapp@$CAP_APP_HOST:/u/apps/shopqiapp/express/shared/config/
+  desc "Symlink shared resources on each release" # 配置文件
+  task :symlink_shared, roles: :app do
+    %w(database.yml app_secret_config.yml).each do |secure_file|
+      run "ln -nfs #{shared_path}/config/#{secure_file} #{release_path}/config/#{secure_file}"
+    end
+  end
+
 end
+
+before 'deploy:assets:precompile', 'deploy:symlink_shared'
 
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
