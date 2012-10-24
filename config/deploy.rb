@@ -30,7 +30,6 @@ set :user, :shopqiapp
 set :use_sudo, false
 
 set :pids_path, "#{shared_path}/pids"
-set :shared_children, shared_children.push('config')
 
 depend :remote, :gem, "bundler", ">=1.0.21" # 可以通过 cap deploy:check 检查依赖情况
 
@@ -57,9 +56,15 @@ namespace :deploy do
     end
   end
 
+  desc "create config shared path"
+  task :add_shared_dir, roles: :app do
+    run "mkdir -p #{shared_path}/config"
+  end
+
 end
 
 before 'deploy:assets:precompile', 'deploy:symlink_shared'
+after 'deploy:setup'             , 'deploy:add_shared_dir'
 
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"

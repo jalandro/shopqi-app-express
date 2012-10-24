@@ -19,3 +19,13 @@
 
     $ bundle exec unicorn_rails -p 3000
     $ bundle exec rake jobs:work
+
+### 部署
+
+首次部署
+
+    $ cap deploy:setup # 创建共享目录等
+    $ cap deploy:cold  # 部署
+
+例常部署
+    $ cap deploy:migrations
