@@ -27,7 +27,7 @@ role :db,  ENV['CAP_DB_HOST'], primary: true            # This is where Rails mi
 #role :db,  "your slave db-server here"
 
 
-set :repository,  "git://github.com/saberma/shopqi-app-#{application}.git"
+set :repository,  "git://github.com/shopqi/shopqi-app-#{application}.git"
 set :scm, :git
 set :deploy_to, "/u/apps/shopqiapp/#{application}" # default
 set :deploy_via, :remote_cache # 不要每次都获取全新的repository

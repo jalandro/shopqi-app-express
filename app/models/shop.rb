@@ -30,7 +30,7 @@ class Shop
 
   def self.send_mail
     self.all.each do |shop|
-      expire_fulfillments = shop.fulfillments#.unreceived.expired
+      expire_fulfillments = shop.fulfillments.unreceived.expired
       ExpressMailer.notify(shop, expire_fulfillments).deliver unless expire_fulfillments.empty?
     end
   end
